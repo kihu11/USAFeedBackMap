@@ -7,8 +7,8 @@ import java.util.regex.Pattern;
 
 public class WordsExtractor {
 
-    private static final Pattern WORD_PATTERN = Pattern.compile("[^a-zA-Z+]");
-    private static List<String> extractWords(String text){
+    private static final Pattern WORD_PATTERN = Pattern.compile("[a-zA-Z+]");
+    public static List<String> extractWords(String text){
 
         List<String> words = new ArrayList<>();
 
