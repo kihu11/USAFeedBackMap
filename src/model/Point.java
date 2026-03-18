@@ -2,11 +2,19 @@ package model;
 
 public class Point {
 
-    public final double x;
-    public final double y;
+    private final double latitude;
+    private final double longitude;
 
-    public Point(double x, double y) {
-        this.x = x;
-        this.y = y;
+    public Point(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 }
