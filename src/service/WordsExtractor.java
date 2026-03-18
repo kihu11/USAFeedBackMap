@@ -8,13 +8,14 @@ import java.util.regex.Pattern;
 public class WordsExtractor {
 
     private static final Pattern WORD_PATTERN = Pattern.compile("[a-zA-Z+]");
-    public static List<String> extractWords(String text){
+
+    public static List<String> extractWords(String text) {
 
         List<String> words = new ArrayList<>();
 
         Matcher matcher = WORD_PATTERN.matcher(text);
 
-        while (matcher.find()){
+        while (matcher.find()) {
             words.add(matcher.group().toLowerCase());
         }
 

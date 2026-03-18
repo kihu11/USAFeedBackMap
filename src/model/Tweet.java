@@ -18,7 +18,6 @@ public class Tweet {
     public Tweet() {
 
     }
-
     public String getMessage() {
         return message;
     }
