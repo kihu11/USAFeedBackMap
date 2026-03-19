@@ -27,7 +27,6 @@ public class StateParser {
 
             List<List<double[]>> polygons = new ArrayList<>();
 
-
             for (JsonNode polygonNode : polygonsNode) {
 
                 List<double[]> polygon = new ArrayList<>();

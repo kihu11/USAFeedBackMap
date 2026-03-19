@@ -17,7 +17,9 @@ public class TweetParser {
             String line;
             while ((line = reader.readLine()) != null) {
                 Tweet tweet = tweetParseLine(line);
-                tweets.add(tweet);
+                if (tweet != null) {
+                    tweets.add(tweet);
+                }
             }
         }
 
@@ -33,7 +35,7 @@ public class TweetParser {
         String[] parts = line.split("\t");
 
         if (parts.length != 4) {
-            throw new IllegalArgumentException("Неверное кол-во полей в строке");
+            throw new IllegalArgumentException("Неверное количество полей в строке");
         }
 
         String coordinates = parts[0].trim();
@@ -44,9 +46,16 @@ public class TweetParser {
 
         String[] cordParts = coordinates.split(",");
 
-        double longitude = Double.parseDouble(cordParts[0].trim());
-        double latitude = Double.parseDouble(cordParts[1].trim());
+        if (cordParts.length != 2) {
+            return null;
+        }
 
-        return new Tweet(longitude, latitude, time, message);
+        double lat = Double.parseDouble(cordParts[0].trim());
+        double lon = Double.parseDouble(cordParts[1].trim());
+
+        if (lat < 20 || lat > 55) return null;
+        if (lon < -130 || lon > -60) return null;
+
+        return new Tweet(lat, lon, time, message);
     }
 }

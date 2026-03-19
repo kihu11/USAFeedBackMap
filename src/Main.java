@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        // 1. Парсим данные
         List<State> states = new StateParser().parseStates("Data/states.json");
         List<Tweet> tweets = new TweetParser().parseTweet("Data/texas_tweets2014.txt");
 
@@ -28,7 +27,20 @@ public class Main {
         Map<String, Double> avgSentiments =
                 new StateSentimentCalculator(analyzer).calculateAverageSentiments(grouped);
 
-        // 2. Показываем карту
-        MapVisualizer.showMap(states, avgSentiments);
+        MapVisualizer.showMap(states, avgSentiments, tweets);
+
+
+
+//        System.out.println("Tweets loaded: " + tweets.size());
+//        for (Tweet t : tweets) {
+//            State s = StateLocator.findClosestState(t, states);
+//            System.out.println(s.getCode());
+//        }
+//        System.out.println(grouped);
+//        System.out.println(analyzer.analyzeTweet(tweets.get(0)));
+//        System.out.println(avgSentiments);
     }
+
+
+
 }

@@ -13,7 +13,6 @@ public class SentimentAnalyzer {
     public SentimentAnalyzer(Map<String, Double> sentiments) {
         this.sentiments = sentiments;
     }
-
     public Double analyzeTweet (Tweet tweet){
 
         List<String> words = WordsExtractor.extractWords(tweet.getMessage());
@@ -24,16 +23,24 @@ public class SentimentAnalyzer {
         for (int i = 0; i < words.size(); i++){
             StringBuilder phrase = new StringBuilder(words.get(i));
             for (int len = 1; len <= 5 && i + len <= words.size(); len++){
-                String key = phrase.toString();
-                if (sentiments.containsKey(key)){
-                    sum += sentiments.get(key);
+                String key = phrase.toString().toLowerCase(); // ВАЖНО
+
+
+                Double val = sentiments.get(key);
+                if (val != null){
+                    sum += val;
                     count++;
                 }
+
                 if (i + len < words.size()){
                     phrase.append(" ").append(words.get(i + len));
+                }
+                if (val != null){
+                    System.out.println("HIT: '" + key + "' = " + val);
                 }
             }
         }
         return count == 0 ? null : sum / count;
     }
+
 }

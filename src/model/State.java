@@ -32,18 +32,21 @@ public class State {
     }
 
     private Point calculateCenter(List<List<double[]>> polygons) {
-        double sumLon = 0;
         double sumLat = 0;
+        double sumLon = 0;
         int count = 0;
 
         for (List<double[]> polygon : polygons) {
             for (double[] p : polygon) {
-                sumLon += p[0];
-                sumLat += p[1];
+                double lon = p[0];
+                double lat = p[1];
+
+                sumLat += lat;
+                sumLon += lon;
                 count++;
             }
         }
 
-        return new Point(sumLon / count, sumLat / count);
+        return new Point(sumLat / count, sumLon / count);
     }
 }

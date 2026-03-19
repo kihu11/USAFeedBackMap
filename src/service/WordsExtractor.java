@@ -2,23 +2,24 @@ package service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class WordsExtractor {
 
-    private static final Pattern WORD_PATTERN = Pattern.compile("[a-zA-Z+]");
-
     public static List<String> extractWords(String text) {
+        List<String> result = new ArrayList<>();
+        if (text == null || text.isEmpty()) return result;
 
-        List<String> words = new ArrayList<>();
 
-        Matcher matcher = WORD_PATTERN.matcher(text);
+        text = text.replaceAll("https?://\\S+", " ");
+        text = text.replaceAll("[@#]", " ");
+        text = text.replaceAll("[^\\p{L}\\p{N}\\s]", " ");
+        text = text.toLowerCase();
 
-        while (matcher.find()) {
-            words.add(matcher.group().toLowerCase());
+        for (String w : text.split("\\s+")) {
+            if (!w.isEmpty()) {
+                result.add(w);
+            }
         }
-
-        return words;
+        return result;
     }
 }
