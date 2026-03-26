@@ -34,9 +34,6 @@ public class TweetParser {
 
         String[] parts = line.split("\t");
 
-        if (parts.length != 4) {
-            throw new IllegalArgumentException("Неверное количество полей в строке");
-        }
 
         String coordinates = parts[0].trim();
         String time = parts[2].trim();

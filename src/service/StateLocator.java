@@ -11,14 +11,27 @@ public class StateLocator {
         double lat = tweet.getLatitude();
         double lon = tweet.getLongitude();
 
+        // 🔍 DEBUG: проверка координат
+        if (lat > 50 || lat < 20 || lon < -130 || lon > -60) {
+            System.out.println("⚠️ Suspicious coords: " + lat + ", " + lon);
+        }
+
+        // 🔥 1. Проверяем попадание в полигоны
         for (State state : states) {
             for (List<double[]> polygon : state.getPolygons()) {
                 if (pointInPolygon(lat, lon, polygon)) {
+
+                    // 🔍 DEBUG: проверка VA
+                    if (state.getCode().equals("VA")) {
+                        System.out.println("✅ Tweet inside VA: " + lat + ", " + lon);
+                    }
+
                     return state;
                 }
             }
         }
 
+        // 🔥 2. Если не попали — ищем ближайший центр
         double minDist = Double.MAX_VALUE;
         State closest = null;
 
@@ -33,6 +46,11 @@ public class StateLocator {
                 minDist = dist;
                 closest = state;
             }
+        }
+
+        // 🔍 DEBUG: если не попали никуда
+        if (closest != null) {
+            System.out.println("⚠️ No polygon match, fallback to: " + closest.getCode());
         }
 
         return closest;

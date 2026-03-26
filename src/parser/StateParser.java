@@ -29,19 +29,39 @@ public class StateParser {
 
             for (JsonNode polygonNode : polygonsNode) {
 
-                List<double[]> polygon = new ArrayList<>();
+                if (!polygonNode.isEmpty() && polygonNode.get(0).isArray()
+                        && polygonNode.get(0).get(0).isArray()) {
 
-                for (JsonNode pointNode : polygonNode) {
-                    double lon = pointNode.get(0).asDouble();
-                    double lat = pointNode.get(1).asDouble();
-                    polygon.add(new double[]{lon, lat});
+                    for (JsonNode ringNode : polygonNode) {
+                        List<double[]> polygon = parsePoints(ringNode);
+                        if (!polygon.isEmpty()) polygons.add(polygon);
+                    }
+
+                } else {
+                    List<double[]> polygon = parsePoints(polygonNode);
+                    if (!polygon.isEmpty()) polygons.add(polygon);
                 }
-
-                polygons.add(polygon);
             }
-            states.add(new State(code, polygons));
+
+            if (!polygons.isEmpty()) {
+                states.add(new State(code, polygons));
+            }
         }
 
         return states;
+    }
+
+    private List<double[]> parsePoints(JsonNode node) {
+        List<double[]> polygon = new ArrayList<>();
+
+        for (JsonNode pointNode : node) {
+            if (pointNode.size() >= 2) {
+                double lon = pointNode.get(0).asDouble();
+                double lat = pointNode.get(1).asDouble();
+                polygon.add(new double[]{lon, lat});
+            }
+        }
+
+        return polygon;
     }
 }

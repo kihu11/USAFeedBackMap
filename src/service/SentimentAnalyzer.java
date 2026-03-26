@@ -22,7 +22,7 @@ public class SentimentAnalyzer {
 
         for (int i = 0; i < words.size(); i++){
             StringBuilder phrase = new StringBuilder(words.get(i));
-            for (int len = 1; len <= 5 && i + len <= words.size(); len++){
+            for (int len = 1; len <= 4 && i + len <= words.size(); len++){
                 String key = phrase.toString().toLowerCase(); // ВАЖНО
 
 
@@ -35,9 +35,9 @@ public class SentimentAnalyzer {
                 if (i + len < words.size()){
                     phrase.append(" ").append(words.get(i + len));
                 }
-                if (val != null){
-                    System.out.println("HIT: '" + key + "' = " + val);
-                }
+//                if (val != null){
+//                    System.out.println("HIT: '" + key + "' = " + val);
+//                }
             }
         }
         return count == 0 ? null : sum / count;
