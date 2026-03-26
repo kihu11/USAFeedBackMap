@@ -30,7 +30,7 @@ public class Main {
         MapVisualizer.showMap(states, avgSentiments, tweets);
 
 
-
+//UIHIIU
 //        System.out.println("Tweets loaded: " + tweets.size());
 //        for (Tweet t : tweets) {
 //            State s = StateLocator.findClosestState(t, states);
