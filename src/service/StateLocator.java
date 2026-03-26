@@ -48,10 +48,6 @@ public class StateLocator {
             }
         }
 
-        // 🔍 DEBUG: если не попали никуда
-        if (closest != null) {
-            System.out.println("⚠️ No polygon match, fallback to: " + closest.getCode());
-        }
 
         return closest;
     }
